@@ -8,9 +8,9 @@ import {
   PlayIcon,
   ShoppingBagIcon,
   XCircleIcon,
+  NoSymbolIcon,
 } from "@heroicons/react/24/solid";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { NoSymbolIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { siteUrl, worldMapId } from "../config";
 import { Toast } from '../App';
@@ -39,7 +39,6 @@ const MapComponent = () => {
   const [clickedTileInfo, setClickedTileInfo] = useState(null);
   const [popperInstance, setPopperInstance] = useState(null);
   const [mapData, setMapData] = useState<GameDetails | null>();
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
   useEffect(() => {
     const config = {
@@ -109,7 +108,6 @@ const MapComponent = () => {
   useEffect(() => {
     const modalPopup = document.getElementById("modalPopup");
     if (mapData) {
-      setShowSuccessToast(true)
       if (modalPopup) {
         const mapImage = document.querySelector("#mapImage");
         if (mapImage instanceof HTMLImageElement) {
@@ -149,12 +147,6 @@ const MapComponent = () => {
       modalPopup.style.display = "none";
     }
   }, [clickedTileInfo, mapData]);
-
-  useEffect(() => {
-    if (showSuccessToast) {
-      Toast({ type: "success", content: "Article Submitted Successfully" });
-    }
-  }, [showSuccessToast]);
 
   const handleTileClick = async (event) => {
     // console.log(138, userDetails);
